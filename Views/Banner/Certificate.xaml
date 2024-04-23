@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="JaricApp.Views.Banner.Certificate"
+             xmlns:local="clr-namespace:JaricApp.Converters">
+    <!---Для конвертора картинок. В ContentPage указываем папку где лежит конвертор(xmlns:local="clr-namespace:JaricApp.Converters") -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"></local:ByteArrayToImageSourceConverter>
+        </ResourceDictionary>
+        <!---Для того чтоб при выделении мышкой, выбранная строка была светлой синей во втором столбце -->
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="420" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <!---Картинка-->
+            <RowDefinition Height="20" />
+            <!---Кнопка выбора картики-->
+            <RowDefinition Height="60" />
+            <!---Надпись "*Рекомендованный размер: 310х520"-->
+            <RowDefinition Height="100" />
+            <!---Параметры файла-->
+            <RowDefinition Height="*" />
+            <!---(Легенда)Надписи к файлу-->
+            <RowDefinition Height="65" />
+            <!---Кнопка сохранения баннера в базе данных-->
+        </Grid.RowDefinitions>
+
+        <!---Выбранная картинка(баннер сертиficate) пользователем-->
+        <!--<WebView  WidthRequest="400" HeightRequest="200" Grid.Column="0"  Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" Margin="10,0,10,0">
+        <WebView.Source>
+            <HtmlWebViewSource Html="{Binding ImageWebHtml}">
+            </HtmlWebViewSource>
+        </WebView.Source>
+    </WebView>-->
+        <VerticalStackLayout Grid.Column="0"  Grid.Row="0" Grid.RowSpan="5">
+            <Image Source="{Binding ImageWebHtml,
+           Mode=TwoWay,
+           Converter={StaticResource ByteArrayToImageSourceConverter}}"
+           Style="{StaticResource Key=imgStyleCertificateBanner}"/>
+
+            <Label Grid.Column="0"  Grid.Row="1" Style="{StaticResource Key=lblDefaultSizeTextCertificate}" ></Label>
+            <!--<Button x:Name="btnOpenImageCertificate" Grid.Column="0"  Grid.Row="2" Style="{StaticResource Key=btnOpenImageButton}" Clicked="OnSelectImageCertificate"/>-->
+            <Button x:Name="btnOpenImageCertificate" Grid.Column="0"  Grid.Row="2" Style="{StaticResource Key=btnOpenImageButton}" Command="{Binding OpenCommand}"/>
+
+            <!---Выводим параметры файла-->
+            <Grid  Margin="0">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout  HorizontalOptions="Start" Margin="20,0,0,0"  Grid.Column="0" >
+                    <!---Надпись "Параметры выбранного файла"-->
+                    <Label Style="{StaticResource Key=lblImageTextLabel}" TextDecorations="Underline"></Label>
+                    <!---Надпись "Размер файла:..."-->
+                    <Label Text="{Binding LblImageSize}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                    <!---Надпись "Разрешение файла..."-->
+                    <Label Text="{Binding LblImageHeightAndWidth}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                    <!---Надпись "Название файла..."-->
+                    <Label Text="{Binding LblImageName}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                </VerticalStackLayout>
+                <VerticalStackLayout  Margin="5,0,20,0" HorizontalOptions="End"  Grid.Column="1">
+                    <!---Надпись "Параметры изменЁнного файла"-->
+                    <Label Style="{StaticResource Key=lblImageModifiedTextLabel}" TextDecorations="Underline" x:Name="lblChangedImageFile"></Label>
+                    <!---Надпись "Размер файла:..."(измененного)-->
+                    <Label Text="{Binding LblImageSizeModified}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                    <!---Надпись "Разрешение файла..."(измененного)-->
+                    <Label Text="{Binding LblImageHeightAndWidthModified}" Style="{StaticResource Key=lblImageCertificate}" ></Label>
+                    <!---Надпись "Формат файла..."(измененного)-->
+                    <Label Text="{Binding LblImageNameModified}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                    <!---Надпись "Качество файла..."(измененного)-->
+                    <Label Text="{Binding LblImageQualityModified}" Style="{StaticResource Key=lblImageCertificate}"></Label>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!---Ввод url адреса-->
+            <Entry Text="{Binding Url}"
+           Style="{StaticResource Key=entTextLegend1}"
+           Margin="10,10,10,10"
+           Placeholder="Ссылка"
+           HeightRequest="20"/>
+        </VerticalStackLayout>
+        <!--Кнопки сохранения и редактирования. На экране видна только одна из них-->
+        <HorizontalStackLayout Grid.Column="0"  Grid.Row="6">
+            <!---Кнопка сохранить картинку баннера-->
+            <Button x:Name="SaveImageCertificate"
+                Text="Сохранить"
+                IsVisible="{Binding BtnSaveIsVisible}"
+                Style="{StaticResource Key=btnSaveImageButton}"
+                Command="{Binding AddCommand}"/>
+            <!---Кнопка редеакировать картинку баннера-->
+            <Button x:Name="EditImageCertificate"
+                Text="Редактировать"
+                IsVisible="{Binding BtnEditIsVisible}"
+                Style="{StaticResource Key=btnSaveImageButton}"
+                Command="{Binding EditCommand}"
+                CommandParameter="{Binding Source={x:Reference Name=cwBannerCertificate}, Path=SelectedItem}"/>
+        </HorizontalStackLayout>
+        <!---ВТОРОЙ СТОЛБЕЦ-->
+        <ScrollView Grid.Column="1"  Grid.Row="0" Grid.RowSpan="5">
+            <Border Stroke="#808080" BackgroundColor="White"  Grid.Column="1"  Grid.Row="0" Grid.RowSpan="5">
+                <StackLayout Grid.Column="1"  Grid.Row="0" Spacing="2" Grid.RowSpan="5" >
+                    <CollectionView x:Name="cwBannerCertificate"
+                                    ItemsSource="{Binding Banners}"
+                                    SelectionChangedCommand="{Binding SelectCommand}"
+                                    SelectionChangedCommandParameter="{Binding Source={x:Reference Name=cwBannerCertificate}, Path=SelectedItem}" 
+                                    SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton GroupName="Certificate" IsChecked="{Binding Visible, Mode=TwoWay}"/>
+                                    <Image Grid.Column="1" 
+                                           Aspect="AspectFit"
+                                           HeightRequest="250"
+                                           WidthRequest="180"
+                                           Source="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                    <!--Подключаем конвертор картинки из byte в img-->
+                                    <!--<Switch Grid.Column="1" AutomationId="{Binding Id}" IsToggled="{Binding Visible}" Margin="5,0,0,0"/>-->
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Border>
+        </ScrollView>
+        <HorizontalStackLayout Grid.Column="1"  Grid.Row="6">
+            <!--Кнопка удаления картинки баннера-->
+            <Button Command="{Binding DeleteCommand}"
+                CommandParameter="{Binding Source={x:Reference Name=cwBannerCertificate}, Path=SelectedItem}" 
+                WidthRequest="100"
+                ToolTipProperties.Text="Нажмите чтоб удалить картинку банера."
+                ImageSource="delete.png"
+                Style="{StaticResource Key=btnChangeInDatabase}"
+                Margin="10,0,0,0"/>
+            <!--Кнопка сохранения изменений картинок у баннера-->
+            <Button x:Name="SaveChangedToggled"
+                Command="{Binding ChangeCommand}"
+                WidthRequest="100"
+                ToolTipProperties.Text="Нажмите чтоб сохранить изменения"
+                ImageSource="save.png"
+                Style="{StaticResource Key=btnChangeInDatabase}"
+                Margin="2,0,0,0"/>
+        </HorizontalStackLayout>
+        <!--Показываем картинку баннера как на сайте-->
+        <WebView Source="{Binding WebSourse}"
+             Grid.Column="2"
+             Grid.RowSpan="5"
+             WidthRequest="410"
+             HeightRequest="720"
+             Margin="5,5,5,5"
+             VerticalOptions="Center"
+             HorizontalOptions="Center">
+        </WebView>
+    </Grid>
+</ContentPage>

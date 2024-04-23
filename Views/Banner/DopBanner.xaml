@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="JaricApp.Views.Banner.DopBanner"
+             xmlns:local="clr-namespace:JaricApp.Converters"
+             Title="Дополнительные баннеры">
+    <!---Для конвертора картинок. В ContentPage указываем папку где лежит конвертор(xmlns:local="clr-namespace:JaricApp.Converters") -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"></local:ByteArrayToImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid ColumnSpacing="5" RowSpacing="5" Margin="5,5,5,5">
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
+            <!---1 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---2 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---3 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---4 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---5 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---6 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---7 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---8 столбец-->
+            <ColumnDefinition Width="*" />
+            <!---9 столбец-->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.9*" />
+        </Grid.RowDefinitions>
+        <!--ПЕРВАЯ СТРОКА-->
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" StrokeThickness="2.0" >
+            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlF1, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerFirstRow}"/>
+                <Label Text="*Рекомендованный размер: 722x251" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url1}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="1"  Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}" HorizontalOptions="Start"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="1" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}" HorizontalOptions="End"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlF2, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerFirstRow}"/>
+                <Label Text="*Рекомендованный размер: 722x251" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url2}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="2" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="2" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlF3, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerFirstRow}"/>
+                <Label Text="*Рекомендованный размер: 722x251" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url3}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="3" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="3" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <!--ВТОРАЯ СТРОКА-->
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlS1, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerSecondRow}"/>
+                <Label Text="*Рекомендованный размер: 575х200" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url4}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="4" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="4" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlS2, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerSecondRow}"/>
+                <Label Text="*Рекомендованный размер: 575х200" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url5}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="5" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="5" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <!--ТРЕТЬЯ СТРОКА-->
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlT1, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerThirdRow}"/>
+                <Label Text="*Рекомендованный размер: 575х200" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url6}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="6" Text="Выбрать" Style="{StaticResource Key=btnStyleDopBanner}" HorizontalOptions="Start"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="6" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}" HorizontalOptions="End"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlT2, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerThirdRow}"/>
+                <Label Text="*Рекомендованный размер: 575х200" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url7}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="7" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="7" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Stroke="Black" BackgroundColor="White"  Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="3" StrokeThickness="2.0">
+            <VerticalStackLayout Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="White">
+                <!--Картинка-->
+                <Image Source="{Binding ImageWebHtmlT3, Mode=TwoWay, Converter={StaticResource ByteArrayToImageSourceConverter}}" Style="{StaticResource Key=imgStyleDopBannerThirdRow}"/>
+                <Label Text="*Рекомендованный размер: 575х200" HorizontalTextAlignment="Center"></Label>
+                <!--Ссылка и кнопка формирования ссылки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Entry Text="{Binding Url8}" Placeholder="Введите ссылку" BackgroundColor="LightBlue" WidthRequest="355"></Entry>
+                    <Button Text="Ссылка" Style="{StaticResource Key=btnStyleDopBannerUrl}"></Button>
+                </HorizontalStackLayout>
+                <!--Кнопки. Выбор и сохранение картинки-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Command="{Binding OpenCommand}" CommandParameter="8" Text="Выбрать"   Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="8" Text="Сохранить" Style="{StaticResource Key=btnStyleDopBanner}"></Button>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

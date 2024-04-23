@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="JaricApp.Views.Banner.MainBanner"
+             xmlns:local="clr-namespace:JaricApp.Converters"
+             Title="Главный баннер(баннеры с надписями)"
+             x:Name="Page_mainbanner">
+    
+    <!---Для конвертора картинок. В ContentPage указываем папку где лежит конвертор(xmlns:local="clr-namespace:JaricApp.Converters") -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter"/>
+            <local:StringToColorConverter x:Key="ColorConverter"/>
+            <local:BooleanToStringConverter x:Key="BoolToStringConverter" />
+        </ResourceDictionary>
+        <!---Для того чтоб при выделении мышкой, выбранная строка была светлой синей во втором столбце -->
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid >
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="420" />
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <!---Картинка-->
+            <RowDefinition Height="20" />
+            <!---Кнопка выбора картики-->
+            <RowDefinition Height="60" />
+            <!---Надпись "*Рекомендованный размер: 1110х520"-->
+            <RowDefinition Height="100"/>
+            <!---Параметры файла-->
+            <RowDefinition Height="*" />
+            <!---(Легенда)Надписи к файлу-->
+            <RowDefinition Height="65"/>
+            <!---Кнопка сохранения баннера в базе данных-->
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout Grid.Column="0"  Grid.Row="0" Grid.RowSpan="4">
+            <!---Выбранная картинка(баннер) пользователем-->
+            <Image Source="{Binding Path=SelectedPicture,
+                   Mode=TwoWay,
+                   Converter = {StaticResource ByteArrayToImageSourceConverter} }"
+                   Style = "{StaticResource Key=imgStyleWithLegendBanner}"/>
+
+            <!---Надписи "*Рекомендованный размер: 1110xXXX"-->
+            <Label Text="{Binding RecommendSize}"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Style="{StaticResource Key=lblDefaultSizeTextLabel}"/>
+
+            <!---Кнопка выбрать файл баннера(картинки) для показа на экране-->
+            <Button x:Name="OpenImageButton"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Style="{StaticResource Key=btnOpenImageButton}"
+                    Command="{Binding OpenCommand}"/>
+
+            <!---Выводим параметры файла-->
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout  HorizontalOptions="Start"  Margin="20,0,0,0" Grid.Column="0"  >
+                    <!---Надпись "Параметры выбранного файла"-->
+                    <Label Style="{StaticResource Key=lblImageTextLabel}" TextDecorations="Underline"></Label>
+                    <!---Надпись "Размер файла:..."-->
+                    <Label Text="{Binding LblImageSize}" Style="{StaticResource Key=lblImageSizeLabel}" x:Name="lblImageSizeValue" ></Label>
+                    <!---Надпись "Разрешение файла..."-->
+                    <Label Text="{Binding LblImageHeightAndWidth}" Style="{StaticResource Key=lblImageHeightAndWidthLabel}" x:Name="lblImageHeightAndWidthValue"></Label>
+                    <!---Надпись "Название файла..."-->
+                    <Label Text="{Binding LblImageName}" Style="{StaticResource Key=lblImageNameLabel}" x:Name="lblImageNameValue"></Label>
+                </VerticalStackLayout>
+                <VerticalStackLayout  Margin="5,0,20,0" HorizontalOptions="End"  Grid.Column="1">
+                    <!---Надпись "Параметры изменЁнного файла"-->
+                    <Label Style="{StaticResource Key=lblImageModifiedTextLabel}" TextDecorations="Underline" x:Name="lblChangedImageFile"></Label>
+                    <!---Надпись "Размер файла:..."(измененного)-->
+                    <Label Text="{Binding LblImageSizeModified}" Style="{StaticResource Key=lblImageSizeModifiedLabel}" x:Name="lblImageSizeModifiedValue" ></Label>
+                    <!---Надпись "Разрешение файла..."(измененного)-->
+                    <Label Text="{Binding LblImageHeightAndWidthModified}" Style="{StaticResource Key=lblImageHeightAndWidthModifiedLabel}" x:Name="lblImageHeightAndWidthModifiedValue"></Label>
+                    <!---Надпись "Название файла..."(измененного)-->
+                    <Label Text="{Binding LblImageNameModified}" Style="{StaticResource Key=lblImageNameModifiedLabel}" x:Name="lblImageNameModifiedValue"></Label>
+                    <!---Надпись "Качество файла..."(измененного)-->
+                    <Label Text="{Binding LblImageQualityModified}" Style="{StaticResource Key=lblImageQualityModified}" x:Name="lblImageQualityModifiedValue"></Label>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+        <!--Напись картинки и его цвет-->
+        <HorizontalStackLayout Grid.Column="0"  Grid.Row="4" Spacing="2">
+            <VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend1ColorE"
+                       Text="{Binding SelectedImageRow.Legend1}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend1Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 1"/>
+                    <Picker x:Name="Legend1ColorPicker"
+                        ItemsSource="{Binding ListColors}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="{Binding SelectedIndexP1}"
+                        WidthRequest="90"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend2ColorE"
+                       Text="{Binding SelectedImageRow.Legend2}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend2Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 2"/>
+                    <Picker x:Name="Legend2ColorPicker"
+                        ItemsSource="{Binding ListColors}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="{Binding SelectedIndexP2}"
+                        WidthRequest="90"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend3ColorE"
+                       Text="{Binding SelectedImageRow.Legend3}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend3Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 3"/>
+                    <Picker x:Name="Legend3ColorPicker"
+                       ItemsSource="{Binding ListColors}"
+                       ItemDisplayBinding="{Binding Name}"
+                       SelectedIndex="{Binding SelectedIndexP3}"
+                       WidthRequest="90"
+                       SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend4ColorE"
+                       Text="{Binding SelectedImageRow.Legend4}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend4Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 4"/>
+                    <Picker x:Name="Legend4ColorPicker"
+                        ItemsSource="{Binding ListColors}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="{Binding SelectedIndexP4}"
+                        WidthRequest="90"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend5ColorE"
+                       Text="{Binding SelectedImageRow.Legend5}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend5Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 5"/>
+                    <Picker x:Name="Legend5ColorPicker"
+                        ItemsSource="{Binding ListColors}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="{Binding SelectedIndexP5}"
+                        WidthRequest="90"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Entry x:Name="Legend6ColorE"
+                       Text="{Binding SelectedImageRow.Legend6}"
+                       Style="{StaticResource Key=entTextLegend1}"
+                       TextColor="{Binding SelectedImageRow.Legend6Color, Mode=TwoWay, Converter={StaticResource ColorConverter}}"
+                       Placeholder="Легенда 6"/>
+                    <Picker x:Name="Legend6ColorPicker"
+                      ItemsSource="{Binding ListColors}"
+                      ItemDisplayBinding="{Binding Name}"
+                      SelectedIndex="{Binding SelectedIndexP6}"
+                      WidthRequest="90"
+                      SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+                </HorizontalStackLayout>
+                <!--Выбор верхнего или нижнего баннера-->
+                <HorizontalStackLayout>
+                    <Label Text="Выберите группу банеров:"
+                       Margin="10,5,0,0"
+                       VerticalOptions="Center"/>
+                    <Picker x:Name="bunchSave"
+                        SelectedIndex="{Binding SelectedImageRow.Bunch}"
+                        SelectedItem="{Binding BunchSelect}" 
+                        Margin="10,5,10,0"
+                        WidthRequest="107"
+                        HorizontalOptions="End"
+                        BackgroundColor="LightGray"/>
+                </HorizontalStackLayout>
+                <!---Ввод url адреса-->
+                <Entry Text="{Binding SelectedImageRow.Url}" Style="{StaticResource Key=entTextLegend1}" Placeholder="Ссылка"/>
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+        <!---Кнопка сохранения баннера(картинки) в базе данных-->
+        <HorizontalStackLayout Grid.Column="0"  Grid.Row="6">
+            <Button IsVisible="{Binding ModeSave}" Text="Сохранить"     Style="{StaticResource Key=btnSaveImageButton}" Command="{Binding SaveCommand}"/>
+            <Button IsVisible="{Binding ModeEdit}" Text="Редактировать" Style="{StaticResource Key=btnSaveImageButton}" Command="{Binding EditCommand}"/>
+        </HorizontalStackLayout>
+        <!---ВТОРОЙ СТОЛБЕЦ-->
+        <ScrollView Grid.Column="1"  Grid.Row="0" Grid.RowSpan="5">
+            <Border Stroke="#808080" BackgroundColor="White"  Grid.Column="1"  Grid.Row="0" Grid.RowSpan="5">
+                <StackLayout Grid.Column="1"  Grid.Row="0" Spacing="2" Grid.RowSpan="5" >
+                    <CollectionView x:Name="cwBanner" 
+                                    ItemsSource="{Binding BannerGroups}"
+                                    SelectedItem="{Binding  SelectedImageRow, Mode=TwoWay }"
+                                    SelectionMode="Single"
+                                    IsGrouped="True" >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" x:Name="grdBanners">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" 
+                                           Aspect="AspectFit"
+                                           HeightRequest="60"
+                                           WidthRequest="110"
+                                           Source="{Binding Image, Mode=TwoWay, Converter = {StaticResource ByteArrayToImageSourceConverter}}"/>
+                                    <!---Подключаем конвертор картинки из byte в img-->
+                                    <Button  Grid.Column="1"
+                                             Style="{StaticResource Key=btnVisibleImage}"
+                                             Text="{Binding Visible, Mode=TwoWay, Converter = {StaticResource BoolToStringConverter}}"
+                                             Command="{Binding Source={x:Reference Page_mainbanner}, Path=BindingContext.ToggledCommand}"
+                                             CommandParameter="{Binding Id}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.GroupHeaderTemplate>
+                            <!---Зоголовок... названия верхнего или нижнего баннера-->
+                            <DataTemplate>
+                                <Label Text="{Binding Name}"  BackgroundColor="White"  FontSize="20" FontAttributes="Bold" />
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+                        <CollectionView.GroupFooterTemplate>
+                            <!---Надпись которая показавает количество картинок в баннере-->
+                            <DataTemplate>
+                                <Label Text="{Binding Count, StringFormat='Всего картинок: {0:D}'}" Margin="5,0,0,0" />
+                            </DataTemplate>
+                        </CollectionView.GroupFooterTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Border>
+        </ScrollView>
+        <HorizontalStackLayout Grid.Column="1"  Grid.Row="6">
+            <Button ToolTipProperties.Text="Нажмите чтоб удалить картинку банера."          ImageSource="delete.png"       Style="{StaticResource Key=btnChangeInDatabase}" Command="{Binding DeleteCommand}" Margin="10,0,0,0"/>
+            <Button ToolTipProperties.Text="Нажмите чтоб переместить картинку банера выше"  ImageSource="arrowupwhite.png" Style="{StaticResource Key=btnChangeInDatabase}" Command="{Binding UpCommand}"     Margin="2,0,0,0"/>
+            <Button ToolTipProperties.Text="Нажмите чтоб сохранить изменения"               ImageSource="save.png"         Style="{StaticResource Key=btnChangeInDatabase}" Command="{Binding ChangeCommand}" Margin="2,0,0,0"/>
+        </HorizontalStackLayout>
+        
+        <VerticalStackLayout Grid.Column="2"  Grid.Row="0" >
+            <Label Text="Выберите баннер:" HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,2,0"></Label>
+            <Picker x:Name="bunchWeb"
+                    Margin="10,0,10,0"
+                    WidthRequest="206"
+                    HorizontalOptions="Center"
+                    BackgroundColor="LightGray"
+                    SelectedIndexChanged="OnPickerWebSelectChanged">
+            </Picker>
+        </VerticalStackLayout>
+
+        <!---Показываем баннер как будет выглядеть на сайте-->
+        <ScrollView Orientation="Both"  Grid.Column="2"  Grid.Row="1" Grid.RowSpan="5">
+            <WebView Source="{Binding SourceWeb, Mode=TwoWay}"
+                     x:Name="VisibleUpBanner"
+                     Margin="5,5,5,5"/>
+        </ScrollView>
+        
+    </Grid>
+</ContentPage>

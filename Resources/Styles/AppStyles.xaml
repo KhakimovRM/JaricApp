@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!---*************MAINBANNER Styles BEGIN********************************-->
+    <!---Выбранная картинка(баннер)-->
+    <Style x:Key="imgStyleWithLegendBanner" TargetType="Image">
+        <Setter Property="WidthRequest"       Value="400"/>
+        <Setter Property="HeightRequest"      Value="200"/>
+        <Setter Property="VerticalOptions"    Value="Center"/>
+        <Setter Property="HorizontalOptions"  Value="Center"/>
+        <Setter Property="Margin"             Value="2,10,2,2"/>
+        <Setter Property="Aspect"             Value="AspectFit"/>
+    </Style>
+
+    <!---Надпись "Рекомендованный размер: 1110х520"-->
+    <Style x:Key="lblDefaultSizeTextLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FlexLayout.BackgroundColor" Value="White"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <!--<Setter Property="Margin" Value="10,0,0,0"/>-->
+    </Style>
+    <!---Надпись "Рекомендованный размер: 310х520"-->
+    <Style x:Key="lblDefaultSizeTextCertificate" TargetType="Label">
+        <Setter Property="Text" Value="*Рекомендованный размер: 310х520" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FlexLayout.BackgroundColor" Value="White"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <!--<Setter Property="Margin" Value="10,0,0,0"/>-->
+    </Style>
+
+    <!---Надпись "Параметры выбранного файла"-->
+    <Style x:Key="lblImageTextLabel" TargetType="Label">
+        <Setter Property="Text" Value="Выбранный файл:" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Размер файла:"-->
+    <Style x:Key="lblImageSizeLabel" TargetType="Label">
+        <Setter Property="Text" Value="Размер файла: 0 байт" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+    <!---Надписи "Размер файла: Разрешение файла: Название файла: баннера Certificate"-->
+    <Style x:Key="lblImageCertificate" TargetType="Label">
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Разрешение файла:"-->
+    <Style x:Key="lblImageHeightAndWidthLabel" TargetType="Label">
+        <Setter Property="Text" Value="Разрешение файла: 0х0" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Название файла:"-->
+    <Style x:Key="lblImageNameLabel" TargetType="Label">
+        <Setter Property="Text" Value="Название файла: *.*" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Параметры измененного файла"-->
+    <Style x:Key="lblImageModifiedTextLabel" TargetType="Label">
+        <Setter Property="Text" Value="Измененный файл:" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+    <!---Надпись "Размер файла:"(измененного)-->
+    <Style x:Key="lblImageSizeModifiedLabel" TargetType="Label">
+        <Setter Property="Text" Value="Размер файла: 0 байт" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Разрешение файла:"(измененного)-->
+    <Style x:Key="lblImageHeightAndWidthModifiedLabel" TargetType="Label">
+        <Setter Property="Text" Value="Разрешение файла: 0х0" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Название файла:"(измененного)-->
+    <Style x:Key="lblImageNameModifiedLabel" TargetType="Label">
+        <Setter Property="Text" Value="Название файла: *.*" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Надпись "Качество файла:"(измененного)-->
+    <Style x:Key="lblImageQualityModified" TargetType="Label">
+        <Setter Property="Text" Value="Качество файла: 0%" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <!--<Setter Property="FlexLayout.Grow" Value="1"/>-->
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <!---Кнопка сохранения картинки(баннера) в базе данных-->
+    <Style x:Key="btnSaveImageButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб сохранить новую картинку"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="ToolTipProperties.Text" Value="Кнопка не активна"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб сохранить новую картинку"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.8" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor" Value="Black" />
+        <Setter Property="HeightRequest" Value="10" />
+        <!--<Setter Property="FlexLayout.Grow" Value="0.5" />-->
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="WidthRequest" Value="400"/>
+        <!--<Setter Property="VerticalOptions" Value="Center" />-->
+        <Setter Property="HorizontalOptions" Value="Start"/>
+
+    </Style>
+
+    <!---Кнопка выбора картинки(баннера) в базе данных-->
+    <Style x:Key="btnOpenImageButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб выбрать новую картинку"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="ToolTipProperties.Text" Value="Кнопка не активна"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб выбрать новую картинкуу"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor" Value="Black" />
+        <Setter Property="Text" Value="Выбрать файл" />
+        <Setter Property="HeightRequest" Value="10" />
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="VerticalOptions" Value="Start" />
+    </Style>
+    <!---Ввод надписи(легенда1) к картинке(баннеру)-->
+    <Style x:Key="entTextLegend1" TargetType="Entry">
+        <Setter Property="PlaceholderColor" Value="LightGrey"/>
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="FontFamily" Value="Helvetica" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="MaxLength" Value="20" />
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="WidthRequest" Value="300"/>
+        <Setter Property="HorizontalOptions" Value="Start"/>
+    </Style>
+
+    <!---Кнопка изменения видимости картинки(баннера) на сайте-->
+    <Style x:Key="btnVisibleImage" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                            <Setter Property="ToolTipProperties.Text" Value="Нажмите чтобы поменять видимость картинки на сайте"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="ToolTipProperties.Text" Value="Кнопка не активна"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                            <Setter Property="ToolTipProperties.Text" Value="Нажмите чтобы поменять видимость картинки на сайте"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor" Value="white" />
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="HeightRequest" Value="10" />
+        <Setter Property="WidthRequest" Value="70" />
+        <Setter Property="Margin" Value="10,0,2,0"/>
+    </Style>
+
+    <!---Кнопка удаления картинки(баннера) из базе данных-->
+    <Style x:Key="btnChangeInDatabase" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб сохранить новую картинку"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Кнопка не активна"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                            <!--<Setter Property="ToolTipProperties.Text" Value="Нажмите чтоб сохранить новую картинку"/>-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.8" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor" Value="Black" />
+        <Setter Property="FontAutoScalingEnabled" Value="True" />
+        <Setter Property="HeightRequest" Value="10" />
+        <Setter Property="WidthRequest" Value="102" />
+        <!--<Setter Property="Margin" Value="10,0,10,0"/>-->
+        <!--<Setter Property="HorizontalOptions" Value="Start" />-->
+    </Style>
+
+
+    <!---***********MAINBANNER Styles END*******************************-->
+
+    <!---***************************************************************-->
+    <!---***********CERTIFICATEBANNER Styles ***************************-->
+    <!---***************************************************************-->
+
+
+    <!---***********CERTIFICATEBANNER Styles END************************-->
+    <Style x:Key="imgStyleCertificateBanner" TargetType="Image">
+        <Setter Property="WidthRequest"       Value="431"/>
+        <Setter Property="HeightRequest"      Value="350"/>
+        <Setter Property="VerticalOptions"    Value="Center"/>
+        <Setter Property="HorizontalOptions"  Value="Center"/>
+        <Setter Property="Margin"             Value="2,10,2,2"/>
+    </Style>
+    <!---***************************************************************-->
+    <!---***********DOPBANNER Styles ***********************************-->
+    <!---***************************************************************-->
+    <!---КнопкИ выбора и сохранения  картинки-->
+    <Style x:Key="btnStyleDopBanner" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor"  Value="Black" />
+        <Setter Property="WidthRequest" Value="120"/>
+        <Setter Property="Margin"       Value="2,5,2,2"/>
+    </Style>
+    <!--Image 1 строка-->
+    <Style x:Key="imgStyleDopBannerFirstRow" TargetType="WebView">
+        <Setter Property="WidthRequest"       Value="431"/>
+        <Setter Property="HeightRequest"      Value="150"/>
+        <Setter Property="VerticalOptions"    Value="Center"/>
+        <Setter Property="HorizontalOptions"  Value="Center"/>
+        <Setter Property="Margin"             Value="2,10,2,2"/>
+    </Style>
+    <!--WebView 2 строка-->
+    <Style x:Key="imgStyleDopBannerSecondRow" TargetType="WebView">
+        <Setter Property="WidthRequest"       Value="431"/>
+        <Setter Property="HeightRequest"      Value="150"/>
+        <Setter Property="VerticalOptions"    Value="Center"/>
+        <Setter Property="HorizontalOptions"  Value="Center"/>
+        <Setter Property="Margin"             Value="2,10,5,2"/>
+    </Style>
+    <!--WebView 3 строка-->
+    <Style x:Key="imgStyleDopBannerThirdRow" TargetType="WebView">
+        <Setter Property="WidthRequest"       Value="431"/>
+        <Setter Property="HeightRequest"      Value="150"/>
+        <Setter Property="VerticalOptions"    Value="Center"/>
+        <Setter Property="HorizontalOptions"  Value="Center"/>
+        <Setter Property="Margin"             Value="2,10,5,2"/>
+    </Style>
+    <!---Кнопка формирования ссылки-->
+    <Style x:Key="btnStyleDopBannerUrl" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#B0C4DE"/>
+                            <Setter Property="TextColor" Value="Gray"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+        <Setter Property="BorderColor"  Value="Black" />
+        <Setter Property="WidthRequest" Value="80"/>
+        <Setter Property="Margin"       Value="2,5,2,2"/>
+    </Style>
+    <!---***********DOPBANNER Styles END*******************************-->
+
+
+    <Style x:Key="btnCategory" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="DarkSlateGray"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="ToolTipProperties.Text" Value="Кнопка не активна"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00008B"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.8" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
+
+

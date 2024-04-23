@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="JaricApp.Views.Сatalogue.CategoryView"
+             xmlns:converters="clr-namespace:JaricApp.Converters"
+             Title="КАТЕГОРИЯ ТОВАРА">
+    <ContentPage.Resources>    <!--Настройка выделения категории товара-->
+        <Style  TargetType="ContentView" >
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                           <!--<VisualState.Setters>
+                                <Setter TargetName="lblCategoryName" Property="Label.TextColor" Value="#1565C0" />
+                                <Setter TargetName="lblCategoryName" Property="Label.FontSize" Value="16" />
+                                <Setter TargetName="lblCategoryUrl"  Property="Label.TextColor" Value="Black" />
+                            </VisualState.Setters>-->
+                        </VisualState>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter TargetName="lblCategoryName" Property="Label.TextColor" Value="DarkBlue" />
+                                <Setter TargetName="lblCategoryName" Property="Label.FontAttributes" Value="Bold" />
+                                <Setter TargetName="lblCategoryName" Property="Label.FontSize" Value="20" />
+                                <Setter TargetName="lblCategoryUrl"  Property="Label.TextColor" Value="Red" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <!--<converters:BoolToColourConverter x:Key="BoolToColourConverter" />-->
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <!--НАЗВАНИЕ СТОЛБЦА "КАТЕГОРИЯ ТОВАРА"-->
+        <Border Margin="5,5,5,0" BackgroundColor="Gray" Stroke="Black" Grid.Column="0" Grid.Row="0">
+            <Label Text="КАТЕГОРИЯ ТОВАРА"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+        </Border>
+        <!--ВВОД ИЛИ РЕДАКТИРОВАНИЕ КАТЕГОРИИ ТОВАРА-->
+        <Border Grid.Column="0" Grid.Row="1" BackgroundColor="LightGray" Margin="5,0,5,0">
+            <VerticalStackLayout>
+                <!---Название категории продукта-->
+                <Entry x:Name="entNameCatecory"
+                       AutomationId="categoryName"
+                       TextChanged="OnEntryNameTextChanged"
+                       Text="{Binding TxtCategoryName, Mode=TwoWay}"
+                       Placeholder="Введите категорию товара"
+                       TextColor="Black"
+                       Background="White"
+                       FontSize="14"
+                       MaxLength="20" 
+                       TextTransform = "Uppercase"
+                       Margin="5"
+                       ToolTipProperties.Text="Название категории товара"/>
+                <!---Ссылка для перехода при нажатии на категорию товара-->
+                <Entry x:Name="entUrlCatecory"
+                       AutomationId="categoryUrl"
+                       TextChanged="OnEntryNameTextChanged"
+                       Text="{Binding TxtCategoryUrl, Mode=TwoWay}"
+                       Placeholder="Введите ссылку для категорию товара"
+                       TextColor="Black"
+                       Background="White"
+                       FontSize="14"
+                       Margin="5"
+                       ToolTipProperties.Text="Ссылка при нажатии на эту категорию товара"/>
+                <HorizontalStackLayout Margin="5">
+                    <Button x:Name="btnSaveCategory"
+                            Text="Сохранить!"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="category"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"
+                            WidthRequest="130"
+                            Margin="5"
+                            Style="{StaticResource Key=btnCategory}"
+                            ToolTipProperties.Text="Нажмите чтоб сохранить новую категорию товара"
+                            IsEnabled="{Binding BtnSaveCategoryEnabled}"/>
+                    <Button x:Name="btnEditCategory"
+                            Text="Редактировать!"
+                            Command="{Binding EditCommand}"
+                            CommandParameter="category"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            WidthRequest="130"
+                            Margin="5"
+                            Style="{StaticResource Key=btnCategory}"
+                            ToolTipProperties.Text="Нажмите чтоб отредактировать категорию товара"
+                            IsEnabled="{Binding BtnEditCategoryEnabled,Mode=TwoWay}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <!--СПИСОК КАТЕГОРИЙ ТОВАРА-->
+        <ScrollView Grid.Column="0" Grid.Row="2" Margin="5,0,5,0">
+            <Border BackgroundColor="LightGray" >
+                <ListView ItemsSource="{Binding CategoryNomenclature}"
+                          SelectionMode="Single"
+                          SelectedItem="{Binding  SelectedCategory, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ContentView>
+                                <Grid Padding="5" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0"
+                                           Grid.Row="0"
+                                           Text="{Binding Name, Mode=TwoWay}"
+                                           TextColor="#1565C0"
+                                           FontSize ="16"
+                                           LineBreakMode ="TailTruncation"
+                                           WidthRequest="250"
+                                           Margin="5,2,5,2"
+                                           x:Name="lblCategoryName"
+                                           x:FieldModifier="rad"
+                                           ToolTipProperties.Text="{Binding Name, Mode=TwoWay}"/>
+                                    <Label Grid.Column="0"
+                                           Grid.Row="1"
+                                           Text="{Binding Url, Mode=TwoWay}"
+                                           TextColor="Black"
+                                           LineBreakMode ="TailTruncation"
+                                           WidthRequest="250"
+                                           Margin="10,0,0,0"
+                                           x:Name="lblCategoryUrl"
+                                           ToolTipProperties.Text="{Binding Url, Mode=TwoWay}"/>
+                                </Grid>
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </ScrollView>
+        <!---КНОПКИ ДЛЯ УДАЛЕНИЯ, ПЕРЕМЕЩЕНИЯ, СОХРАНЕНИЯ ИЗМЕНЕНИЯ ПРИ ПЕРЕМЕЩЕНИЯ КАТЕГОРИИ ТОВАРА-->
+        <HorizontalStackLayout Grid.Column="0" Grid.Row="3" Margin="5,0,5,5" BackgroundColor="LightGray">
+            <Button ImageSource="delete.png"
+                    Command="{Binding DeleteCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    WidthRequest="90"
+                    Margin="5,2,2,2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб удалить категорию"
+                    IsEnabled="{Binding BtnDeleteCategoryEnabled}"/>
+            <Button ImageSource="arrowupwhite.png"
+                    Command="{Binding UpCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    WidthRequest="90"
+                    Margin="2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб переместить категорию вверх"
+                    IsEnabled="{Binding BtnUpdateCategoryEnabled}"/>
+            <Button ImageSource="save.png"
+                    Command="{Binding UpdateCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    WidthRequest="90"
+                    Margin="2,2,5,2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб сохранить изменения после перемещения"
+                    IsEnabled="{Binding BtnSaveChangeCategoryEnabled}"/>
+        </HorizontalStackLayout>
+        
+        <!---*************************************************************************************************************************************-->
+        <!---**********************************ПОДКАТЕГОРИЯ ТОВАРА********************************************************************************-->
+        <!---*************************************************************************************************************************************-->
+        <!--НАЗВАНИЕ СТОЛБЦА "ПОДКАТЕГОРИЯ ТОВАРА"-->
+        <Border Margin="5,5,5,0" BackgroundColor="Gray" Stroke="Black" Grid.Column="1" Grid.Row="0">
+            <Label Text="ПОДКАТЕГОРИЯ ТОВАРА"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"/>
+        </Border>
+        <!--ВВОД ИЛИ РЕДАКТИРОВАНИЕ ПОДКАТЕГОРИИ ТОВАРА-->
+        <Border Grid.Column="1" Grid.Row="1" BackgroundColor="LightGray" Margin="5,0,5,0">
+            <VerticalStackLayout>
+                <!---Название ПОДкатегории продукта-->
+                <Entry x:Name="entNameSubCatecory"
+                       AutomationId="subcategoryName"
+                       TextChanged="OnEntryNameTextChanged"
+                       Text="{Binding TxtSubCategoryName, Mode=TwoWay}"
+                       Placeholder="Введите подкатегорию товара"
+                       TextColor="Black"
+                       Background="White"
+                       FontSize="14"
+                       MaxLength="20" 
+                       TextTransform = "Uppercase"
+                       Margin="5"
+                       ToolTipProperties.Text="Название подкатегории товара"/>
+                <!---Ссылка для перехода при нажатии на ПОДкатегорию товара-->
+                <Entry x:Name="entUrlSubCatecory"
+                       TextChanged="OnEntryNameTextChanged"
+                       AutomationId="subcategoryUrl"
+                       Text="{Binding TxtSubCategoryUrl, Mode=TwoWay}"
+                       Placeholder="Введите ссылку для подкатегорию товара"
+                       TextColor="Black"
+                       Background="White"
+                       FontSize="14"
+                       Margin="5"
+                       ToolTipProperties.Text="Ссылка при нажатии на эту подкатегорию товара"/>
+                <HorizontalStackLayout Margin="5">
+                    <Button x:Name="btnSaveSubCategory"
+                            Text="Сохранить!"
+                            Command="{Binding SaveCommand}"
+                            CommandParameter="subcategory"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"
+                            WidthRequest="130"
+                            Margin="5"
+                            Style="{StaticResource Key=btnCategory}"
+                            ToolTipProperties.Text="Нажмите чтоб сохранить новую подкатегорию товара"
+                            IsEnabled="{Binding BtnSaveSubCategoryEnabled}"/>
+                    <Button x:Name="btnEditSubCategory"
+                            Text="Редактировать!"
+                            Command="{Binding EditCommand}"
+                            CommandParameter="subcategory"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            WidthRequest="130"
+                            Margin="5"
+                            Style="{StaticResource Key=btnCategory}"
+                            ToolTipProperties.Text="Нажмите чтоб отредактировать подкатегорию товара"
+                            IsEnabled="{Binding BtnEditSubCategoryEnabled, Mode=TwoWay}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <!--СПИСОК ПОДКАТЕГОРИЙ ТОВАРА-->
+        <ScrollView Grid.Column="1" Grid.Row="2" Margin="5,0,5,0">
+            <Border BackgroundColor="LightGray" >
+                <ListView ItemsSource="{Binding SubCategoryNomenclature}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding  SelectedSubCategory, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ContentView>
+                                    <Grid Padding="5" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                               Grid.Row="0"
+                                               Text="{Binding Name, Mode=TwoWay}"
+                                               TextColor="#1565C0"
+                                               FontSize ="16"
+                                               LineBreakMode ="TailTruncation"
+                                               WidthRequest="250"
+                                               Margin="5,2,5,2"
+                                               x:Name="lblCategoryName"
+                                               ToolTipProperties.Text="{Binding Name, Mode=TwoWay}"/>
+                                        <Label Grid.Column="0"
+                                               Grid.Row="1"
+                                               Text="{Binding Url, Mode=TwoWay}"
+                                               TextColor="Black"
+                                               LineBreakMode ="TailTruncation"
+                                               WidthRequest="250"
+                                               Margin="10,0,0,0"
+                                               x:Name="lblCategoryUrl"
+                                               ToolTipProperties.Text="{Binding Url, Mode=TwoWay}"/>
+                                    </Grid>
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </ScrollView>
+        <!---КНОПКИ ДЛЯ УДАЛЕНИЯ, ПЕРЕМЕЩЕНИЯ, СОХРАНЕНИЯ ИЗМЕНЕНИЯ ПРИ ПЕРЕМЕЩЕНИЯ ПОДКАТЕГОРИИ ТОВАРА-->
+        <HorizontalStackLayout Grid.Column="1" Grid.Row="3" Margin="5,0,5,5" BackgroundColor="LightGray">
+            <Button ImageSource="delete.png"
+                    Command="{Binding DeleteCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    WidthRequest="90"
+                    Margin="5,2,2,2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб удалить категорию"
+                    IsEnabled="{Binding BtnDeleteSubCategoryEnabled}"/>
+            <Button ImageSource="arrowupwhite.png"
+                    Command="{Binding UpCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    WidthRequest="90"
+                    Margin="2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб переместить категорию вверх"
+                    IsEnabled="{Binding BtnUpdateSubCategoryEnabled}"/>
+            <Button ImageSource="save.png"
+                    Command="{Binding UpdateCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    WidthRequest="90"
+                    Margin="2,2,5,2"
+                    Style="{StaticResource Key=btnCategory}"
+                    ToolTipProperties.Text="Нажмите чтоб сохранить изменения после перемещения"
+                    IsEnabled="{Binding BtnSaveChangeSubCategoryEnabled}"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
+
+
+
+<!--<CollectionView x:Name="cwCategoryProduct"
+                     ItemsSource="{Binding CategoryNomenclature}"
+                     SelectionMode="Single"
+                     SelectedItem="{Binding  SelectedCategory, Mode=TwoWay}"
+                     SelectionChanged="OnCWParentChanging">
+         <CollectionView.ItemTemplate>
+             <DataTemplate>
+                 <ContentView>
+                     <Grid >
+                
+
+
+                <Grid.RowDefinitions>
+                             <RowDefinition Height="Auto" />
+                             <RowDefinition Height="Auto" />
+                         </Grid.RowDefinitions>
+                         <Grid.ColumnDefinitions>
+                             <ColumnDefinition Width="Auto" />
+                             <ColumnDefinition Width="Auto" />
+                         </Grid.ColumnDefinitions>
+                         <VerticalStackLayout >
+                             <Label Text="{Binding Name, Mode=TwoWay}"
+                                    
+                                    MaxLines="1"
+                                    LineBreakMode ="TailTruncation"
+                                    WidthRequest="250"
+                                    Margin="5,2,5,2"
+                                    x:Name="lblCategoryName"
+                                    x:FieldModifier="rad"
+                                    ToolTipProperties.Text="{Binding Name, Mode=TwoWay}"/>
+                             <Label Text="{Binding Url, Mode=TwoWay}"
+                                    MaxLines="1"
+                                    LineBreakMode ="TailTruncation"
+                                    WidthRequest="250"
+                                    Margin="10,0,0,0"
+                                    x:Name="lblCategoryUrl"
+                                    ToolTipProperties.Text="{Binding Url, Mode=TwoWay}"/>
+                         </VerticalStackLayout>
+                     </Grid>
+                 </ContentView>
+             </DataTemplate>
+         </CollectionView.ItemTemplate>
+     </CollectionView>-->

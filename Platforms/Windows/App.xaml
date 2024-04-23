@@ -1,0 +1,25 @@
+﻿<!--<maui:MauiWinUIApplication
+    x:Class="JaricApp.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="using:JaricApp.WinUI">
+
+</maui:MauiWinUIApplication>-->
+
+<maui:MauiWinUIApplication
+    x:Class="JaricApp.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="JaricApp.WinUI">
+    <maui:MauiWinUIApplication.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="ListViewItemBackgroundSelected" Color="LightSkyBlue" />
+            <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver" Color="LightSkyBlue" />
+            <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPressed" Color="LightSkyBlue" />
+            <SolidColorBrush x:Key="ListViewItemSelectedBackgroundThemeBrush" Color="LightSkyBlue" />
+        </ResourceDictionary>
+    </maui:MauiWinUIApplication.Resources>
+</maui:MauiWinUIApplication>
+
